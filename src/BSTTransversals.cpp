@@ -22,14 +22,42 @@ struct node{
 	struct node *right;
 };
 
+void inOrderTraversal(struct node *root, int *arr, int *index)
+{
+	if (root == NULL || arr==NULL) return;
+	inOrderTraversal(root->left, arr, index);
+	arr[*index] = root->data;
+	(*index) = (*index) + 1;
+	inOrderTraversal(root->right,arr, index);
 
+}
+void preOrderTraversal(struct node *root, int *arr, int *index)
+{
+	if (root == NULL || arr==NULL) return;
+	arr[*index] = root->data;
+	(*index) = (*index) + 1;
+	preOrderTraversal(root->left, arr, index);
+	preOrderTraversal(root->right, arr, index);
+
+}
+void postOrderTraversal(struct node *root, int *arr, int *index)
+{
+	if (root == NULL || arr==NULL) return;
+	postOrderTraversal(root->left, arr, index);
+	postOrderTraversal(root->right, arr, index);
+	arr[*index] = root->data;
+	(*index) = (*index) + 1;
+}
 void inorder(struct node *root, int *arr){
-	
+	int  index = 0;
+	inOrderTraversal(root, arr, &index);
 }
 void preorder(struct node *root, int *arr){
-	
+	int  index = 0;
+	preOrderTraversal(root, arr, &index);
 }
 void postorder(struct node *root, int *arr){
-	
+	int  index = 0;
+	postOrderTraversal(root, arr, &index);
 }
 
