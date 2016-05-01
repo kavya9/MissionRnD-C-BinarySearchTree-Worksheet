@@ -28,10 +28,41 @@ struct node{
 	int data;
 	struct node *right;
 };
+int noOfNodes(struct node* root)
+{
+	if (root == NULL)return 0;
+	return 1 + noOfNodes(root->left) + noOfNodes(root->right);
+}
+int height(struct node* root)
+{
+	if (root == NULL) return 0;
+	int leftHeight = height(root->left);
+	int rightHeight = height(root->right);
+	int max = leftHeight > rightHeight ? leftHeight : rightHeight;
+	return max + 1;
+}
+void BSTLevelByLevel(struct node* root, int level,int *arr,int *index)
+{
+	if (root == NULL) return;
+	if (level == 1)
+	{
+		arr[*index] = root->data;
+		(*index) = (*index) + 1;
+	}
+	else if (level > 1)
+	{
+		BSTLevelByLevel(root->right, level - 1, arr, index);
+		BSTLevelByLevel(root->left, level - 1, arr, index);
+	}
 
-
-
+}
 int* BSTRighttoLeftRows(struct node* root)
 {
-    return NULL;
+	if (root == NULL) return NULL;
+	int BSTheight = height(root);
+	int *arr = (int *)malloc(noOfNodes(root)*sizeof(int));
+	int i,index=0;
+	for (i = 1; i <= BSTheight; i++)
+		BSTLevelByLevel(root, i, arr, &index);
+	return arr;
 }
