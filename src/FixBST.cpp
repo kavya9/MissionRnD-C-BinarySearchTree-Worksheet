@@ -98,7 +98,5 @@ void fix_bst(struct node *root){
 		num = first->data;
 		first->data = second->data;
 		second->data = num;
-
-
 	}
 }
